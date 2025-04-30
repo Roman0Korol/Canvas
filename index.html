@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Canvas Image Editor</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <link rel="icon" href="./././images/weblogo.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="canvas.css" />
+    <script src="canvas.js"></script>
+  </head>
+  <body>
+    <div id="mainContainer">
+      <div id="optionContainer">
+        <div class="options">
+          <label id="dragLabel" for="drag"
+            ><img src="./././images/drag1.png" width="30" height="30"
+          /></label>
+          <input
+            type="radio"
+            name="option"
+            id="drag"
+            onchange="updateOptions()"
+          />
+
+          <label id="drawLabel" for="draw"
+            ><img src="./././images/draw.png" width="30" height="30"
+          /></label>
+          <input
+            type="radio"
+            name="option"
+            id="draw"
+            onchange="updateOptions()"
+          />
+
+          <label id="filterLabel" for="filter"
+            ><img src="./././images/filter.png" width="30" height="30"
+          /></label>
+          <input
+            type="radio"
+            name="option"
+            id="filter"
+            onchange="updateOptions()"
+          />
+
+          <label id="textLabel" for="text"
+            ><img src="./././images/text.png" width="30" height="30"
+          /></label>
+          <input
+            type="radio"
+            name="option"
+            id="text"
+            onchange="updateOptions()"
+          />
+
+          <label id="imageSettingLabel" for="imageSetting"
+            ><img src="./././images/imageSettings.png" width="30" height="30"
+          /></label>
+          <input
+            type="radio"
+            name="option"
+            id="imageSetting"
+            onchange="updateOptions()"
+          />
+        </div>
+
+        <div id="filters">
+          <div id="mainFilters">
+            <label id="background" for="grayscale">
+              Grayscale
+              <img
+                id="filter1"
+                src="./././images/placer.png"
+                width="100"
+                height="100"
+              />
+              <input
+                type="checkbox"
+                id="grayscale"
+                onchange="updateGrayscale()"
+              />
+            </label>
+            <label for="threshold">
+              Threshold
+              <img
+                id="filter2"
+                src="./././images/placer.png"
+                width="100"
+                height="100"
+              />
+              <input
+                type="checkbox"
+                id="threshold"
+                onchange="updateThreshold()"
+              />
+            </label>
+            <label for="sepia">
+              Sepia<img
+                id="filter3"
+                src="./././images/placer.png"
+                width="100"
+                height="100"
+              />
+              <input type="checkbox" id="sepia" onchange="updateSepia()" />
+            </label>
+            <label for="invert">
+              Invert<img
+                id="filter4"
+                src="./././images/placer.png"
+                width="100"
+                height="100"
+              />
+              <input type="checkbox" id="invert" onchange="updateInvert()" />
+            </label>
+            <label for="posterise">
+              Posterise<img
+                id="filter5"
+                src="./././images/placer.png"
+                width="100"
+                height="100"
+              />
+              <input
+                type="checkbox"
+                id="posterise"
+                onchange="updatePosterise()"
+              />
+            </label>
+
+            <div id="convolutionControls">
+              <label id="selectLable" for="">
+                Convolution:
+                <select id="convolutionType" onchange="updateConvolution()">
+                  <option value="none">None</option>
+                  <option value="emboss">Emboss</option>
+                  <option value="blur">Blur</option>
+                  <option value="sharpen">Sharpen</option>
+                  <option value="edge">Edge Detection</option>
+                </select>
+              </label>
+            </div>
+
+            <div id="blendControls">
+              <label for="blendModeSelect">
+                Blend Mode:
+                <select id="blendModeSelect" onchange="applyBlendMode()">
+                  <option value="source-over">Normal</option>
+                  <option value="multiply">Multiply</option>
+                  <option value="overlay">Overlay</option>
+                  <option value="darken">Darken</option>
+                  <option value="color-dodge">Color Dodge</option>
+                  <option value="color-burn">Color Burn</option>
+                  <option value="hard-light">Hard Light</option>
+                  <option value="difference">Difference</option>
+                  <option value="exclusion">Exclusion</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div
+            id="brightnessControlsLabel"
+            onclick="updateBrightnessCheckbox()"
+            for="brightnessControlsCheckbox"
+          >
+            <img
+              id="brightnessControlsImage"
+              src="./././images/settings.png"
+              width="30"
+              height="30"
+            />
+            <input
+              type="checkbox"
+              name="transforms"
+              id="brightnessControlsCheckbox"
+              onchange="updateOptions()"
+            />
+          </div>
+
+          <div id="brightnessControls">
+            <label class="brightnessLabel" for="brightness">
+              Brightness
+              <input
+                type="range"
+                id="brightness"
+                value="0"
+                min="-255"
+                max="255"
+                onchange="updateBrightnessLevel()"
+              />
+            </label>
+            <label class="brightnessLabel" for="brightnessRed">
+              Red:<input
+                type="range"
+                id="brightnessRed"
+                value="0"
+                min="-255"
+                max="255"
+                onchange="updateBrightnessLevel()"
+              />
+            </label>
+            <label class="brightnessLabel" for="brightnessGreen">
+              Green:<input
+                type="range"
+                id="brightnessGreen"
+                value="0"
+                min="-255"
+                max="255"
+                onchange="updateBrightnessLevel()"
+              />
+            </label>
+            <label class="brightnessLabel" for="brightnessBlue">
+              Blue:<input
+                type="range"
+                id="brightnessBlue"
+                value="0"
+                min="-255"
+                max="255"
+                onchange="updateBrightnessLevel()"
+              />
+            </label>
+            <div onclick="resetBrightness()" id="resetLabel" for="resetImage">
+              <img
+                id="resetImage"
+                src="./././images/reset.png"
+                width="30"
+                height="30"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="dragControls">
+          <label
+            id="imageWidthLabel"
+            onclick="updateOptions()"
+            for="widthCheckbox"
+          >
+            <img
+              id="widthImage"
+              src="./././images/width.png"
+              width="30"
+              height="30"
+            />
+            <input
+              type="checkbox"
+              name="transform"
+              id="widthCheckbox"
+              onchange="updateOptions()"
+            />
+          </label>
+
+          <label
+            id="imageHeightLabel"
+            onclick="updateOptions()"
+            for="heightCheckbox"
+          >
+            <img
+              id="heightImage"
+              src="./././images/height.png"
+              width="30"
+              height="30"
+            />
+            <input
+              type="checkbox"
+              name="transform"
+              id="heightCheckbox"
+              onchange="updateOptions()"
+            />
+          </label>
+
+          <label id="frontLabel" onclick="moveSelectedToFront()" for="toFront">
+            <img
+              id="toFront"
+              src="./././images/toFront.png"
+              width="30"
+              height="30"
+            />
+          </label>
+
+          <label id="backLabel" onclick="moveSelectedToBack()" for="toBack">
+            <img
+              id="toBack"
+              src="./././images/toBack.png"
+              width="30"
+              height="30"
+            />
+          </label>
+
+          <div id="rotateControls">
+            <label id="rotateLabel" for="rotate">
+              Rotate:
+              <input
+                type="range"
+                id="rotate"
+                value="0"
+                min="0"
+                max="360"
+                onchange="updateRotate()"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div id="drawControls">
+          <input
+            type="color"
+            id="colour"
+            value="#fff"
+            onchange="updateOptions()"
+          />
+
+          <label id="sizeImageLabel" for="size">
+            <div id="sizeValue">10</div>
+            <input
+              type="range"
+              id="size"
+              value="10"
+              min="1"
+              max="50"
+              onchange="updateOptions()"
+            />
+            <img
+              id="sizeImage"
+              src="./././images/circle.png"
+              width="100"
+              height="100"
+            />
+          </label>
+
+          <label id="undoLabel" onclick="undoDraw()" for="undoImage">
+            <img
+              id="undoImage"
+              src="./././images/undo.png"
+              width="30"
+              height="30"
+            />
+          </label>
+
+          <label id="redoLabel" onclick="redoDraw()" for="redoImage">
+            <img
+              id="redoImage"
+              src="./././images/redo.png"
+              width="30"
+              height="30"
+            />
+          </label>
+
+          <label id="eraserLabel" for="eraserCheckbox">
+            <img
+              id="heightImage"
+              src="./././images/eraser.png"
+              width="30"
+              height="30"
+            />
+            <input
+              type="checkbox"
+              id="eraserCheckbox"
+              onchange="updateOptions()"
+            />
+          </label>
+
+          <label id="clearLabel" onclick="displayClearDraw()" for="clearImage">
+            <img
+              id="clearImage"
+              src="./././images/clear.png"
+              width="30"
+              height="30"
+            />
+          </label>
+        </div>
+
+        <div id="textBoxControls">
+          <input
+            type="color"
+            id="textColour"
+            value="#fff"
+            onchange="updateOptions()"
+          />
+          <input type="text" id="textbox" onchange="updateOptions()" />
+          <div id="fontOptions"></div>
+
+          <label id="textSizeLabel">
+            <div id="textSizeValue">10</div>
+            <input
+              type="range"
+              id="textSize"
+              value="10"
+              min="1"
+              max="50"
+              onchange="updateOptions()"
+            />
+          </label>
+
+          <label id="eraserTextLabel" for="eraserTextCheckbox">
+            <img
+              id="heightImage"
+              src="./././images/eraser.png"
+              width="30"
+              height="30"
+            />
+            <input
+              type="checkbox"
+              id="eraserTextCheckbox"
+              onchange="updateOptions()"
+            />
+          </label>
+
+          <label id="undoTextLabel" onclick="undoText()" for="undoImage">
+            <img
+              id="undoImage"
+              src="./././images/undo.png"
+              width="30"
+              height="30"
+            />
+          </label>
+
+          <label id="redoTextLabel" onclick="redoText()" for="redoImage">
+            <img
+              id="redoImage"
+              src="./././images/redo.png"
+              width="30"
+              height="30"
+            />
+          </label>
+
+          <label id="maskTextLabel" onclick="createTextMask()">
+            <img src="./././images/mask.png" width="30" height="30" />
+          </label>
+        </div>
+
+        <div id="imageSettingControls">
+          <label
+            id="fileLabel"
+            for="deleteImage"
+            onclick="displayImageDelete()"
+          >
+            <img
+              id="deleteImage"
+              src="./././images/delete.png"
+              width="30"
+              height="30"
+            />
+          </label>
+
+          <label id="fileLabel" for="myfile">
+            <img
+              id="fileImage"
+              src="./././images/add.png"
+              width="30"
+              height="30"
+            />
+            <input
+              type="file"
+              id="myfile"
+              name="myfile"
+              onchange="addImage()"
+            />
+          </label>
+
+          <label id="fileLabel" for="saveImageFile">
+            <a
+              id="saveImageFile"
+              download="image.png"
+              onclick="this.href = canvas.toDataURL('image/png')"
+            >
+              <img
+                id="saveImage"
+                src="./././images/save.png"
+                width="30"
+                height="30"
+              />
+            </a>
+          </label>
+
+          <label id="imageMaskLabel" onclick="applyImageMask()">
+            <img src="./././images/mask.png" width="30" height="30" />
+          </label>
+        </div>
+      </div>
+
+      <canvas id="canvas">
+        Your browser does not support the HTML5 'Canvas' tag.
+      </canvas>
+    </div>
+    <div id="confirmation"></div>
+  </body>
+</html>

@@ -1,0 +1,772 @@
+* {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 350;
+  font-style: normal;
+}
+
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+p {
+  margin-top: 0;
+}
+
+h3 {
+  margin: 0;
+  left: 0;
+}
+
+#mainContainer {
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  padding: 2%;
+  background-color: #80808021;
+}
+
+#optionContainer {
+  position: absolute;
+  background-color: #ffffff;
+  max-height: 80px;
+  max-width: 97%;
+
+  top: 0;
+  left: 2%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  padding: 0.5%;
+  flex-wrap: nowrap;
+  border-bottom: 1px solid #808080;
+}
+
+#canvas {
+  position: relative;
+  top: 10%;
+  border: 1px solid #808080;
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  height: 650px;
+  cursor: none;
+}
+
+#loadingMessage {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  font-size: 50px;
+}
+
+#deleteContainer {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.options {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 5px;
+  margin: 5px;
+  position: relative;
+  font-size: 25px;
+  border-right: 1.5px solid #80808069;
+}
+
+.options input[type="radio"],
+input[type="checkbox"],
+input[type="file"] {
+  position: absolute;
+  visibility: hidden;
+}
+
+.options label {
+  padding: 5px;
+  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+}
+
+.options label:hover {
+  background-color: #cecece61;
+  cursor: pointer;
+}
+
+#resetLabel,
+#fileLabel,
+#undoLabel,
+#redoLabel,
+#undoTextLabel,
+#redoTextLabel,
+#clearLabel,
+#eraserLabel,
+#brightnessControlsLabel,
+#eraserTextLabel,
+#imageMaskLabel,
+#maskTextLabel {
+  padding: 5px;
+  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+}
+
+#resetLabel:hover,
+#fileLabel:hover,
+#undoLabel:hover,
+#redoLabel:hover,
+#undoTextLabel:hover,
+#redoTextLabel:hover,
+#clearLabel:hover,
+#eraserLabel:hover,
+#brightnessControlsLabel:hover,
+#eraserTextLabel:hover,
+#imageMaskLabel:hover,
+#maskTextLabel:hover {
+  background-color: #cecece61;
+  cursor: pointer;
+}
+
+#mainFilters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 10px;
+  gap: 10px;
+  flex-wrap: nowrap;
+  border-right: 1.5px solid #80808069;
+}
+
+#filters {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+#filters label:hover {
+  background-color: #cecece61;
+  cursor: pointer;
+}
+
+#filters label img {
+  display: none;
+  z-index: 100;
+  border: solid;
+  transform: translateX(-18%);
+  top: 100%;
+}
+
+#filters label:hover #filter1 {
+  display: block;
+  position: absolute;
+  filter: grayscale(100%);
+}
+
+#filters label:hover #filter2 {
+  display: block;
+  position: absolute;
+  filter: grayscale(2000%) contrast(2000%);
+}
+
+#filters label:hover #filter3 {
+  display: block;
+  position: absolute;
+  top: 100%;
+  filter: sepia(2000%);
+}
+
+#filters label:hover #filter4 {
+  display: block;
+  position: absolute;
+  top: 100%;
+  filter: invert(2000%);
+}
+
+#filters label:hover #filter5 {
+  display: block;
+  position: absolute;
+  top: 100%;
+  filter: contrast(3) brightness(0.9);
+}
+
+#convolutionControls {
+  min-width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 5px;
+  flex-wrap: nowrap;
+}
+
+#convolutionControls #selectLable {
+  padding: 2px;
+  height: fit-content;
+}
+
+#convolutionControls select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #808080;
+}
+
+#rotateControls {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  min-width: fit-content;
+  min-height: fit-content;
+}
+
+#rotateControls label {
+  border: 1px solid #808080;
+  min-width: fit-content;
+}
+
+#rotateControls label:hover {
+  background-color: #fff;
+}
+
+#sizeImageLabel {
+  border: 1px solid #808080;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  min-width: fit-content;
+  padding: 5px;
+  border-radius: 7px;
+  height: fit-content;
+}
+
+#sizeImageLabel:hover {
+  background-color: #cecece61;
+  cursor: pointer;
+}
+
+#sizeImageLabel img {
+  visibility: hidden;
+  position: absolute;
+  display: flex;
+  z-index: 100;
+  top: 100%;
+}
+
+#textSizeLabel {
+  border: 1px solid #808080;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  min-width: fit-content;
+  padding: 5px;
+  border-radius: 7px;
+}
+
+#textSizeLabel:hover {
+  background-color: #cecece61;
+  cursor: pointer;
+}
+
+#textBoxControls {
+  width: 100%;
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+#textBoxControls #textbox,
+#textBoxControls #selectedFont {
+  border: 1px solid #808080;
+  border-radius: 7px;
+  height: 30px;
+}
+#selectedFont:hover {
+  cursor: pointer;
+}
+
+#dragControls {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 5px;
+  margin: 5px;
+}
+
+#dragControls label {
+  padding: 5px;
+  border-radius: 7px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: fit-content;
+}
+
+#dragControls label:hover {
+  background-color: #cecece61;
+  cursor: pointer;
+}
+
+#drawControls {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: nowrap;
+}
+
+#brightnessControls {
+  align-items: center;
+  display: flex;
+  min-width: fit-content;
+  gap: 15px;
+}
+
+#brightnessControls:hover label {
+  background-color: #fff;
+}
+
+.brightnessLabel {
+  min-width: fit-content;
+}
+
+#colour,
+#textColour {
+  width: 30px;
+}
+
+#delete {
+  text-align: center;
+  z-index: 1000;
+  padding: 8px 15px;
+  margin: 2px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background-color: #ffebee;
+  color: #c62828;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: auto;
+}
+
+#confirm {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #af574c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#myfile {
+  width: 0;
+}
+#textBoxControls #selectedFont {
+  border: 1px solid #808080;
+
+  border-radius: 7px;
+  height: 30px; 
+}
+#eraserTextLabel {
+  padding: 5px;
+  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+}
+
+#eraserTextLabel:hover {
+  background-color: #cecece61;
+  cursor: pointer;
+}
+
+#sizeImageLabel img {
+  visibility: hidden;
+  position: absolute;
+  display: flex;
+
+  z-index: 100;
+  top: 100%;
+}
+
+#filters label {
+  padding: 5px;
+  border: 1.5px solid #808080;
+  border-radius: 5px;
+}
+#filters label:hover {
+  background-color: #cecece61;
+  cursor: pointer;
+}
+
+#filters input[type="checkbox"] {
+  position: absolute;
+  visibility: hidden;
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  visibility: hidden;
+}
+input[type="file"] {
+  position: absolute;
+  visibility: hidden;
+}
+
+#dragControls {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 5px;
+  margin: 5px;
+}
+
+#dragControls label {
+  padding: 5px;
+  border-radius: 7px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  height: fit-content;
+}
+#dragControls label:hover {
+  background-color: #cecece61;
+  cursor: pointer;
+}
+
+.options label {
+  padding: 5px;
+  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+}
+
+#drawControls {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: nowrap;
+}
+
+#textBoxControls {
+  width: 100%;
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+#colour {
+  width: 30px;
+}
+#textColour {
+  width: 30px;
+}
+
+#brightnessControlsLabel {
+  padding: 5px;
+  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+}
+
+#brightnessControlsLabel:hover {
+  background-color: #cecece61;
+}
+#brightnessControls {
+  align-items: center;
+  display: flex;
+  min-width: fit-content;
+  gap: 15px;
+}
+#brightnessControls:hover label {
+  background-color: #fff;
+}
+.brightnessLabel {
+  min-width: fit-content;
+}
+
+#filters label img {
+  display: none;
+  z-index: 100;
+  border: solid;
+  transform: translateX(-18%);
+  top: 100%;
+}
+
+#filters label:hover #filter1 {
+  display: block;
+  position: absolute;
+  filter: grayscale(100%);
+}
+#filters label:hover #filter2 {
+  display: block;
+  position: absolute;
+  filter: grayscale(2000%) contrast(2000%);
+}
+#filters label:hover #filter3 {
+  display: block;
+  position: absolute;
+  top: 100%;
+  filter: sepia(2000%);
+}
+#filters label:hover #filter4 {
+  display: block;
+  position: absolute;
+  top: 100%;
+  filter: invert(2000%);
+}
+#filters label:hover #filter5 {
+  display: block;
+  position: absolute;
+  top: 100%;
+  filter: contrast(3) brightness(0.9);
+}
+@media (max-width: 1250px) {
+  #canvas
+  {
+    width: 80%
+  }
+}
+@media (max-width: 600px) {
+  * {
+    font-weight: 450;
+  }
+  #mainContainer {
+    flex-direction: column-reverse;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #optionContainer {
+    position: static;
+    flex-direction: column-reverse;
+    max-height: none;
+    width: 100%;
+    border-top: 1px solid #808080;
+    border-bottom: none;
+    overflow-y: auto;
+    gap: 0;
+  }
+
+  .options {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-right: none;
+    border-top: 1.5px solid #80808069;
+    width: 100%;
+  }
+
+  #canvas {
+    position: absolute;
+    width: 80%;
+    height: 50%;
+    top: 10%;
+    z-index: 1;
+    /* background-color: #fff; */
+  }
+
+  #filters,
+  #dragControls,
+  #drawControls,
+  #textBoxControls,
+  #imageSettingControls,
+  #brightnessControls {
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+    border-right: none;
+  }
+
+  #filters label,
+  #dragControls label,
+  #drawControls label,
+  #textBoxControls label,
+  #imageSettingControls label,
+  #brightnessControls label {
+    width: 35px;
+    height: 35px;
+  }
+  #filters img,
+  #dragControls img,
+  #drawControls img,
+  #textBoxControls img,
+  #imageSettingControls img,
+  #brightnessControls img {
+    width: 35px;
+    height: 35px;
+  }
+  #optionContainer
+  {
+
+    z-index: 2;
+  }
+
+  #drawControls {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  #textBoxControls {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  #dragControls {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  #imageSettingControls {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    gap: 10px;
+    padding: 5px;
+  }
+  #selectLable {
+    gap: 15px;
+  }
+  #filters {
+    flex-direction: column;
+    border-bottom: 0;
+  }
+  #brightnessControls {
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    padding: 0;
+  }
+  .brightnessLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #imageSettingControls img {
+    width: 35px;
+    height: 35px;
+  }
+  #imageSettingControls label {
+    width: 35px;
+    height: 35px;
+
+  }
+
+  #mainFilters {
+    flex-direction: column;
+    width: 50%;
+    border-right: 0;
+  }
+
+  #convolutionControls {
+    padding: 10px;
+    width: 100%;
+    height: 35px;
+    margin: 0;
+  }
+  #convolutionControls label {
+    padding: 10px;
+    width: 100%;
+    height: 35px;
+    margin: 0;
+  }
+
+
+
+  #filters label {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    margin: 4px 0;
+  }
+
+  #filters label img {
+    position: relative;
+    top: auto;
+    left: 0;
+    transform: none;
+    margin-top: 5px;
+  }
+
+  #brightnessControls {
+    padding: 10px;
+  }
+
+  .brightnessLabel {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+
+#blendControls {
+  min-width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 5px;
+  flex-wrap: nowrap;
+}
+
+#blendControls label {
+  padding: 2px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#blendControls select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #808080;
+}
